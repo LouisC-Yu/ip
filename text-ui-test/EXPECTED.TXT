@@ -5,3 +5,12 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+<<<<<<< HEAD
+=======
+____________________________________________________________
+hi
+blah
+fcasdbahfbkasjfbjksdfvnksdmglnsdkfnsdf
+Okay, bye dude!
+____________________________________________________________
+>>>>>>> b5b5803 (	modified:   src/main/java/Dude.java)
