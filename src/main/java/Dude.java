@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Dude {
     public void line() {
 	System.out.println("____________________________________________________________");
@@ -16,11 +18,29 @@ public class Dude {
     public void start(){
 	line();
 	greet();
-	bye();
     }
 
     public static void main(String[] args) {
 	Dude dude = new Dude();
 	dude.start();
+
+	Scanner scanner = new Scanner(System.in);
+
+	while (true) {
+		if (!scanner.hasNextLine()) {
+			break;
+		}
+
+		String input = scanner.nextLine().trim();
+
+		if (input.equalsIgnoreCase("bye")) {
+                	dude.bye();
+                	break;
+            	}
+		
+		System.out.println(input);
+	}
+	
+	scanner.close();
     }
 }
