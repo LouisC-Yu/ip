@@ -22,4 +22,8 @@ public class Task {
     public String getName() {
 	return this.description;
     }
+
+    public String printTask() {
+	return "[" + this.getStatusIcon() + "] " + this.getName(); 
+    }
 }
