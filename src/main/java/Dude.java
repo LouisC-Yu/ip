@@ -31,29 +31,28 @@ public class Dude {
 
     public void printList() {
 	for (int i = 0; i < this.taskList.size(); i++) {
-	    System.out.println(String.valueOf(i) + ". [" + taskList.get(i).getStatusIcon() + "]" + taskList.get(i).getName());
+	    System.out.println(String.valueOf(i) + ". " + this.taskList.get(i).printTask());
 	}
 	line();
     }
 
-    public void addList(String s) {
-	Task t = new Task(s);
+    public void addList(Task t) {
 	this.taskList.add(t);
-	System.out.println("added: " + s);
+	System.out.println("Sure dude! added: \n" + t.printTask() + "\nNow you have " + String.valueOf(this.taskList.size()) + " task in the list");
 	line();
     }
 
     public void mark(int i) {
 	Task t = this.taskList.get(i);
 	t.markDone();
-	System.out.println("Sure dude! I'll mark that as done:\n[" + t.getStatusIcon() + "] " + t.getName());
+	System.out.println("Sure dude! I'll mark that as done:\n" + t.printTask());
 	line();
     }
 
     public void unmark(int i) {
 	Task t = this.taskList.get(i);
-	t.markDone();
-	System.out.println("Sure dude! I'll unmark that as not done:\n[" + t.getStatusIcon() + "] " + t.getName());
+	t.unmarkDone();
+	System.out.println("Sure dude! I'll unmark that as not done:\n" + t.printTask());
 	line();
     }
 
@@ -76,22 +75,49 @@ public class Dude {
                 break;
             }
 
-	    if (input.toLowerCase().equals("list")) {
+	    else if (input.toLowerCase().equals("list")) {
 		dude.printList();
 	    }
 
-	    if (input.toLowerCase().startsWith("mark ")) {
+	    else if (input.toLowerCase().startsWith("mark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
 		dude.mark(i);
 	    }
 	    
-	    if (input.toLowerCase().startsWith("unmark ")) {
+	    else if (input.toLowerCase().startsWith("unmark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
 		dude.unmark(i);
 	    }
 
+	    else if (input.toLowerCase().startsWith("todo ")) {
+		String desc = input.split(" ", 2)[1];
+		Todo t = new Todo(desc);
+
+		dude.addList(t);
+		
+	    }
+
+	    else if (input.toLowerCase().startsWith("deadline ")) {
+		String desc = input.split(" ", 2)[1];
+		String by = desc.split("/by ")[1];
+		desc = desc.split(" /")[0];
+		Deadline t = new Deadline(desc, by);
+
+		dude.addList(t);
+	    }
+
+	    else if (input.toLowerCase().startsWith("event ")) {
+		String desc = input.split(" ", 2)[1];
+		String from = desc.split(" /")[1].substring(5);
+		String to = desc.split(" /to ")[1];
+		desc = desc.split(" /")[0];
+		Event t = new Event(desc, from, to);
+		
+		dude.addList(t);
+	    }
+
 	    else {
-		dude.addList(input);
+		System.out.println(input);
 	    }
 	}
 	
