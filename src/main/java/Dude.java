@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Dude {
 
-    private List<String> taskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList<>();
 
     public Dude() {
 	this.taskList = taskList;
@@ -31,14 +31,29 @@ public class Dude {
 
     public void printList() {
 	for (int i = 0; i < this.taskList.size(); i++) {
-	    System.out.println(String.valueOf(i) + ". " + taskList.get(i));
+	    System.out.println(String.valueOf(i) + ". [" + taskList.get(i).getStatusIcon() + "]" + taskList.get(i).getName());
 	}
 	line();
     }
 
     public void addList(String s) {
-	this.taskList.add(s);
+	Task t = new Task(s);
+	this.taskList.add(t);
 	System.out.println("added: " + s);
+	line();
+    }
+
+    public void mark(int i) {
+	Task t = this.taskList.get(i);
+	t.markDone();
+	System.out.println("Sure dude! I'll mark that as done:\n[" + t.getStatusIcon() + "] " + t.getName());
+	line();
+    }
+
+    public void unmark(int i) {
+	Task t = this.taskList.get(i);
+	t.markDone();
+	System.out.println("Sure dude! I'll unmark that as not done:\n[" + t.getStatusIcon() + "] " + t.getName());
 	line();
     }
 
@@ -56,13 +71,23 @@ public class Dude {
 
 	    String input = scanner.nextLine().trim();
 
-	    if (input.equalsIgnoreCase("bye")) {
+	    if (input.toLowerCase().equals("bye")) {
                 dude.bye();
                 break;
             }
 
-	    if (input.equalsIgnoreCase("list")) {
+	    if (input.toLowerCase().equals("list")) {
 		dude.printList();
+	    }
+
+	    if (input.toLowerCase().startsWith("mark ")) {
+		int i = Integer.parseInt(input.split(" ")[1]);
+		dude.mark(i);
+	    }
+	    
+	    if (input.toLowerCase().startsWith("unmark ")) {
+		int i = Integer.parseInt(input.split(" ")[1]);
+		dude.unmark(i);
 	    }
 
 	    else {
