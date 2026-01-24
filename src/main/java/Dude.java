@@ -1,10 +1,10 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Dude {
 
     private List<Task> taskList = new ArrayList<>();
+    String[] commandarray = {"bye", "list", "todo", "deadline", "event", "mark", "unmark"};
+    private List<String> commands = Arrays.asList(commandarray);
 
     public Dude() {
 	this.taskList = taskList;
@@ -56,6 +56,44 @@ public class Dude {
 	line();
     }
 
+    public void checkError(String command) throws commandException, unknownException {
+	String s = command.toLowerCase();
+
+	if (!this.commands.contains(s.split(" ")[0])) {
+	    throw new unknownException("Dude, I don't know what that's supposed to mean, dude ;-;");
+	}
+
+	if (s.startsWith("todo")) {
+	    if(s.split(" ").length <= 1) {
+	    	throw new commandException("Dude! The todo command can't have an empty description, dude!");
+	    }
+	}
+
+	else if (s.startsWith("deadline")) {
+	    if (s.split("/")[0].split(" ").length <= 1) {
+	    	throw new commandException("Dude! The deadline command can't have an empty description, dude!");
+	    }
+
+	    if (!s.contains("/by ")) {
+		throw new commandException("Dude! A deadline needs a, y'know, deadline (/by) dude!");
+	    }
+	}
+
+	else if (s.startsWith("event")) {
+
+	    if (s.split("/")[0].split(" ").length <= 1) {
+	    	throw new commandException("Dude! The event command can't have an empty description, dude!");
+	    }
+
+	    if (!s.contains("/from ")) {
+		throw new commandException("Dude! An event needs to have a start (/from) time, dude!");
+	    }
+	    else if (!s.contains("/to ")) {
+		throw new commandException("Dude! An event needs to have an end (/to) time, dude!");
+	    }
+	}
+    }
+
     public static void main(String[] args) {
 	Dude dude = new Dude();
 	dude.start();
@@ -69,6 +107,18 @@ public class Dude {
 	    }
 
 	    String input = scanner.nextLine().trim();
+
+	    try {
+		dude.checkError(input);
+	    } catch (commandException e1) {
+		System.out.println(e1.toString());
+		dude.line();
+		continue;
+	    } catch(unknownException e2) {
+		System.out.println(e2.toString());
+		dude.line();
+		continue;
+	    }
 
 	    if (input.toLowerCase().equals("bye")) {
                 dude.bye();
@@ -98,6 +148,7 @@ public class Dude {
 	    }
 
 	    else if (input.toLowerCase().startsWith("deadline ")) {
+		System.out.println("Hi");
 		String desc = input.split(" ", 2)[1];
 		String by = desc.split("/by ")[1];
 		desc = desc.split(" /")[0];
@@ -107,6 +158,7 @@ public class Dude {
 	    }
 
 	    else if (input.toLowerCase().startsWith("event ")) {
+		System.out.println("Hiii");
 		String desc = input.split(" ", 2)[1];
 		String from = desc.split(" /")[1].substring(5);
 		String to = desc.split(" /to ")[1];
@@ -114,10 +166,6 @@ public class Dude {
 		Event t = new Event(desc, from, to);
 		
 		dude.addList(t);
-	    }
-
-	    else {
-		System.out.println(input);
 	    }
 	}
 	

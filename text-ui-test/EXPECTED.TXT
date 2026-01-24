@@ -3,65 +3,17 @@ Sup dude, I'm Dude!
 How may I help, dude?
 
 ____________________________________________________________
-Sure dude! added: 
-[T][ ] read book
-Now you have 1 task in the list
+commandException: Dude! The todo command can't have an empty description, dude!
 ____________________________________________________________
-Sure dude! added: 
-[D][ ] return book (by: June 6th)
-Now you have 2 task in the list
+commandException: Dude! The deadline command can't have an empty description, dude!
 ____________________________________________________________
-Sure dude! added: 
-[E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-Now you have 3 task in the list
+commandException: Dude! The event command can't have an empty description, dude!
 ____________________________________________________________
-Sure dude! added: 
-[T][ ] join sports club
-Now you have 4 task in the list
+commandException: Dude! A deadline needs a, y'know, deadline (/by) dude!
 ____________________________________________________________
-Sure dude! added: 
-[T][ ] borrow book
-Now you have 5 task in the list
+commandException: Dude! An event needs to have an end (/to) time, dude!
 ____________________________________________________________
-0. [T][ ] read book
-1. [D][ ] return book (by: June 6th)
-2. [E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-3. [T][ ] join sports club
-4. [T][ ] borrow book
-____________________________________________________________
-Sure dude! I'll mark that as done:
-[D][X] return book (by: June 6th)
-____________________________________________________________
-Sure dude! I'll mark that as done:
-[T][X] borrow book
-____________________________________________________________
-Sure dude! I'll mark that as done:
-[T][X] join sports club
-____________________________________________________________
-Sure dude! I'll unmark that as not done:
-[T][ ] join sports club
-____________________________________________________________
-0. [T][ ] read book
-1. [D][X] return book (by: June 6th)
-2. [E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-3. [T][ ] join sports club
-4. [T][X] borrow book
-____________________________________________________________
-Sure dude! added: 
-[D][ ] return book (by: Sunday)
-Now you have 6 task in the list
-____________________________________________________________
-Sure dude! added: 
-[E][ ] project meeting(from: Mon 2pm to: 4pm)
-Now you have 7 task in the list
-____________________________________________________________
-0. [T][ ] read book
-1. [D][X] return book (by: June 6th)
-2. [E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-3. [T][ ] join sports club
-4. [T][X] borrow book
-5. [D][ ] return book (by: Sunday)
-6. [E][ ] project meeting(from: Mon 2pm to: 4pm)
+unknownException: Dude, I don't know what that's supposed to mean, dude ;-;
 ____________________________________________________________
 Okay, bye dude!
 ____________________________________________________________
