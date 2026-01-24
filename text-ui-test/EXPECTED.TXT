@@ -8,17 +8,43 @@ Hello from
 <<<<<<< HEAD
 =======
 ____________________________________________________________
-commandException: Dude! The todo command can't have an empty description, dude!
+Sure dude! added: 
+[T][ ] a
+Now you have 1 task in the list
 ____________________________________________________________
-commandException: Dude! The deadline command can't have an empty description, dude!
+Sure dude! added: 
+[T][ ] b
+Now you have 2 task in the list
 ____________________________________________________________
-commandException: Dude! The event command can't have an empty description, dude!
+Hi
+Sure dude! added: 
+[D][ ] c (by: Monday)
+Now you have 3 task in the list
 ____________________________________________________________
-commandException: Dude! A deadline needs a, y'know, deadline (/by) dude!
+Hiii
+Sure dude! added: 
+[E][ ] d (from: Today to: Tomorrow)
+Now you have 4 task in the list
 ____________________________________________________________
-commandException: Dude! An event needs to have an end (/to) time, dude!
+Hi
+Sure dude! added: 
+[D][ ] e (by: Next Month)
+Now you have 5 task in the list
 ____________________________________________________________
-unknownException: Dude, I don't know what that's supposed to mean, dude ;-;
+1. [T][ ] a
+2. [T][ ] b
+3. [D][ ] c (by: Monday)
+4. [E][ ] d (from: Today to: Tomorrow)
+5. [D][ ] e (by: Next Month)
+____________________________________________________________
+Sure dude! Deleting this task:
+[D][ ] e (by: Next Month)
+Now you have 4 task(s) in the task list, dude!
+____________________________________________________________
+1. [T][ ] a
+2. [T][ ] b
+3. [D][ ] c (by: Monday)
+4. [E][ ] d (from: Today to: Tomorrow)
 ____________________________________________________________
 Okay, bye dude!
 ____________________________________________________________

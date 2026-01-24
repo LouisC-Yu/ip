@@ -3,7 +3,7 @@ import java.util.*;
 public class Dude {
 
     private List<Task> taskList = new ArrayList<>();
-    String[] commandarray = {"bye", "list", "todo", "deadline", "event", "mark", "unmark"};
+    String[] commandarray = {"bye", "list", "delete", "todo", "deadline", "event", "mark", "unmark"};
     private List<String> commands = Arrays.asList(commandarray);
 
     public Dude() {
@@ -31,7 +31,7 @@ public class Dude {
 
     public void printList() {
 	for (int i = 0; i < this.taskList.size(); i++) {
-	    System.out.println(String.valueOf(i) + ". " + this.taskList.get(i).printTask());
+	    System.out.println(String.valueOf(i+1) + ". " + this.taskList.get(i).printTask());
 	}
 	line();
     }
@@ -43,16 +43,25 @@ public class Dude {
     }
 
     public void mark(int i) {
-	Task t = this.taskList.get(i);
+	Task t = this.taskList.get(i-1);
 	t.markDone();
 	System.out.println("Sure dude! I'll mark that as done:\n" + t.printTask());
 	line();
     }
 
     public void unmark(int i) {
-	Task t = this.taskList.get(i);
+	Task t = this.taskList.get(i-1);
 	t.unmarkDone();
 	System.out.println("Sure dude! I'll unmark that as not done:\n" + t.printTask());
+	line();
+    }
+
+    public void delete(int i) {
+	Task t = this.taskList.get(i-1);
+	System.out.println("Sure dude! Deleting this task:\n" + t.printTask());
+	this.taskList.remove(i-1);
+	int ts = this.taskList.size();
+	System.out.println("Now you have " + String.valueOf(ts) + " task(s) in the task list, dude!");	
 	line();
     }
 
@@ -137,6 +146,11 @@ public class Dude {
 	    else if (input.toLowerCase().startsWith("unmark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
 		dude.unmark(i);
+	    }
+
+	    else if (input.toLowerCase().startsWith("delete ")) {
+		int i = Integer.parseInt(input.split(" ")[1]);
+		dude.delete(i);
 	    }
 
 	    else if (input.toLowerCase().startsWith("todo ")) {
