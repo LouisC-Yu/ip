@@ -12,6 +12,6 @@ public class Event extends Task {
 
     @Override
     public String printTask() {
-	return "[E]" + super.printTask() + "(from: " + this.from + " to: " + this.to + ")";
+	return "[E]" + super.printTask() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
