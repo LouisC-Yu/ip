@@ -10,7 +10,7 @@ public class Dude {
     public Dude() {
 	this.taskList = taskList;
 	try {
-	File savedList = new File("/home/lolfaceer/ip-master/src/main/java/dude.txt");
+	File savedList = new File("./dude.txt");
 	Scanner fReader = new Scanner(savedList);
 	while (fReader.hasNextLine()) {
 	    String[] data = fReader.nextLine().trim().split("/");
@@ -40,7 +40,9 @@ public class Dude {
 	    }
 	}
 	fReader.close();  }
-	catch (FileNotFoundException e) { System.out.println("g"); }
+	catch (FileNotFoundException e) { 
+	    File savedList = new File("./dude.txt");
+	}
     }
 
     public void line() {
@@ -61,7 +63,7 @@ public class Dude {
 	    s += "\n";
 	}
 	try {
-	FileWriter fWriter = new FileWriter("/home/lolfaceer/ip-master/src/main/java/dude.txt");
+	FileWriter fWriter = new FileWriter("./dude.txt");
 	fWriter.write(s);
 	fWriter.close(); 
 	}
