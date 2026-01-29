@@ -23,6 +23,10 @@ public class Task {
 	return this.description;
     }
 
+    public String getSaveData() {
+	return "T/" + this.getStatusIcon() + "/" + this.description;
+    }
+
     public String printTask() {
 	return "[" + this.getStatusIcon() + "] " + this.getName(); 
     }

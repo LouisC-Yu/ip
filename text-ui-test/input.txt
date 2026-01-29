@@ -1,9 +1,2 @@
-todo a
-todo b
-deadline c /by Monday
-event d /from Today /to Tomorrow
-deadline e /by Next Month
-list
-delete 5
 list
 bye

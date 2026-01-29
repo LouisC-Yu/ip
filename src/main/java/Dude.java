@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Dude {
 
@@ -8,6 +9,38 @@ public class Dude {
 
     public Dude() {
 	this.taskList = taskList;
+	try {
+	File savedList = new File("/home/lolfaceer/ip-master/src/main/java/dude.txt");
+	Scanner fReader = new Scanner(savedList);
+	while (fReader.hasNextLine()) {
+	    String[] data = fReader.nextLine().trim().split("/");
+
+	    if (data[0].equals("T")) {
+		Todo T = new Todo(data[2]);
+		if (!data[1].equals("X")) {
+		    T.markDone();
+		}
+		this.taskList.add(T);
+	    }
+
+	    else if (data[0].equals("D")) {
+		Deadline D = new Deadline(data[2], data[3]);
+		if (!data[1].equals("X")) {
+		    D.markDone();
+		}
+		this.taskList.add(D);
+	    }
+
+	    else if (data[0].equals("E")) {
+		Event E = new Event(data[2], data[3], data[4]);
+		if (!data[1].equals("X")) {
+		    E.markDone();
+		}
+		this.taskList.add(E);
+	    }
+	}
+	fReader.close();  }
+	catch (FileNotFoundException e) { System.out.println("g"); }
     }
 
     public void line() {
@@ -21,6 +54,18 @@ public class Dude {
 
     public void bye() {
 	System.out.println("Okay, bye dude!");
+	String s = "";
+
+	for (Task task : this.taskList) {
+	    s += task.getSaveData();
+	    s += "\n";
+	}
+	try {
+	FileWriter fWriter = new FileWriter("/home/lolfaceer/ip-master/src/main/java/dude.txt");
+	fWriter.write(s);
+	fWriter.close(); 
+	}
+	catch (IOException e) { System.out.println("guh"); }
         line();
     }
     
@@ -162,7 +207,6 @@ public class Dude {
 	    }
 
 	    else if (input.toLowerCase().startsWith("deadline ")) {
-		System.out.println("Hi");
 		String desc = input.split(" ", 2)[1];
 		String by = desc.split("/by ")[1];
 		desc = desc.split(" /")[0];
@@ -172,7 +216,6 @@ public class Dude {
 	    }
 
 	    else if (input.toLowerCase().startsWith("event ")) {
-		System.out.println("Hiii");
 		String desc = input.split(" ", 2)[1];
 		String from = desc.split(" /")[1].substring(5);
 		String to = desc.split(" /to ")[1];
