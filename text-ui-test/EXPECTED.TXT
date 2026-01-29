@@ -8,43 +8,9 @@ Hello from
 <<<<<<< HEAD
 =======
 ____________________________________________________________
-Sure dude! added: 
-[T][ ] a
-Now you have 1 task in the list
-____________________________________________________________
-Sure dude! added: 
-[T][ ] b
-Now you have 2 task in the list
-____________________________________________________________
-Hi
-Sure dude! added: 
-[D][ ] c (by: Monday)
-Now you have 3 task in the list
-____________________________________________________________
-Hiii
-Sure dude! added: 
-[E][ ] d (from: Today to: Tomorrow)
-Now you have 4 task in the list
-____________________________________________________________
-Hi
-Sure dude! added: 
-[D][ ] e (by: Next Month)
-Now you have 5 task in the list
-____________________________________________________________
-1. [T][ ] a
-2. [T][ ] b
-3. [D][ ] c (by: Monday)
-4. [E][ ] d (from: Today to: Tomorrow)
-5. [D][ ] e (by: Next Month)
-____________________________________________________________
-Sure dude! Deleting this task:
-[D][ ] e (by: Next Month)
-Now you have 4 task(s) in the task list, dude!
-____________________________________________________________
-1. [T][ ] a
-2. [T][ ] b
-3. [D][ ] c (by: Monday)
-4. [E][ ] d (from: Today to: Tomorrow)
+1. [T][X] read book
+2. [D][X] return book (by: tomorrow)
+3. [E][X] birthday (from: today to: tomorrow)
 ____________________________________________________________
 Okay, bye dude!
 ____________________________________________________________
