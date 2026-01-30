@@ -2,114 +2,55 @@ import java.util.*;
 import java.io.*;
 
 public class Dude {
-
-    private List<Task> taskList = new ArrayList<>();
     String[] commandarray = {"bye", "list", "delete", "todo", "deadline", "event", "mark", "unmark"};
     private List<String> commands = Arrays.asList(commandarray);
 
-    public Dude() {
-	this.taskList = taskList;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+
+    public Dude(String filepath) {
+	this.ui = new Ui();
+	this.storage = new Storage(filepath);
 	try {
-	File savedList = new File("./dude.txt");
-	Scanner fReader = new Scanner(savedList);
-	while (fReader.hasNextLine()) {
-	    String[] data = fReader.nextLine().trim().split("/");
-
-	    if (data[0].equals("T")) {
-		Todo T = new Todo(data[2]);
-		if (!data[1].equals("X")) {
-		    T.markDone();
-		}
-		this.taskList.add(T);
-	    }
-
-	    else if (data[0].equals("D")) {
-		Deadline D = new Deadline(data[2], data[3]);
-		if (!data[1].equals("X")) {
-		    D.markDone();
-		}
-		this.taskList.add(D);
-	    }
-
-	    else if (data[0].equals("E")) {
-		Event E = new Event(data[2], data[3], data[4]);
-		if (!data[1].equals("X")) {
-		    E.markDone();
-		}
-		this.taskList.add(E);
-	    }
+	    this.taskList = new TaskList(storage.load());
+	} catch (FileNotFoundException e) {
+	    this.taskList = new TaskList();
 	}
-	fReader.close();  }
-	catch (FileNotFoundException e) { 
-	    File savedList = new File("./dude.txt");
-	}
-    }
-
-    public void line() {
-	System.out.println("____________________________________________________________");
-    }
-
-    public void greet() {
-        System.out.println("Sup dude, I'm Dude!\nHow may I help, dude?\n");
-	line();
     }
 
     public void bye() {
-	System.out.println("Okay, bye dude!");
-	String s = "";
-
-	for (Task task : this.taskList) {
-	    s += task.getSaveData();
-	    s += "\n";
-	}
+	this.ui.bye();
 	try {
-	FileWriter fWriter = new FileWriter("./dude.txt");
-	fWriter.write(s);
-	fWriter.close(); 
+	    this.storage.save(this.taskList.getAll());
+        } catch (IOException e) {
+	    System.out.println("Error saving data");
 	}
-	catch (IOException e) { System.out.println("guh"); }
-        line();
-    }
-    
-    public void start() {
-	line();
-	greet();
-    }
-
-    public void printList() {
-	for (int i = 0; i < this.taskList.size(); i++) {
-	    System.out.println(String.valueOf(i+1) + ". " + this.taskList.get(i).printTask());
-	}
-	line();
     }
 
     public void addList(Task t) {
 	this.taskList.add(t);
-	System.out.println("Sure dude! added: \n" + t.printTask() + "\nNow you have " + String.valueOf(this.taskList.size()) + " task in the list");
-	line();
+	int s = this.taskList.size();
+	this.ui.showTaskAdded(t, s);
     }
 
     public void mark(int i) {
 	Task t = this.taskList.get(i-1);
 	t.markDone();
-	System.out.println("Sure dude! I'll mark that as done:\n" + t.printTask());
-	line();
+	this.ui.showTaskMarked(t, true);
     }
 
     public void unmark(int i) {
 	Task t = this.taskList.get(i-1);
 	t.unmarkDone();
-	System.out.println("Sure dude! I'll unmark that as not done:\n" + t.printTask());
-	line();
+	this.ui.showTaskMarked(t, false);
     }
 
     public void delete(int i) {
 	Task t = this.taskList.get(i-1);
-	System.out.println("Sure dude! Deleting this task:\n" + t.printTask());
 	this.taskList.remove(i-1);
 	int ts = this.taskList.size();
-	System.out.println("Now you have " + String.valueOf(ts) + " task(s) in the task list, dude!");	
-	line();
+	this.ui.showTaskDeleted(t, ts);
     }
 
     public void checkError(String command) throws commandException, unknownException {
@@ -150,11 +91,8 @@ public class Dude {
 	}
     }
 
-    public static void main(String[] args) {
-	Dude dude = new Dude();
-	dude.start();
-
-
+    public void run() {
+	this.ui.greet();
 	Scanner scanner = new Scanner(System.in);
 
 	while (true) {
@@ -165,46 +103,43 @@ public class Dude {
 	    String input = scanner.nextLine().trim();
 
 	    try {
-		dude.checkError(input);
+		this.checkError(input);
 	    } catch (commandException e1) {
-		System.out.println(e1.toString());
-		dude.line();
+		this.ui.showError(e1.toString());
 		continue;
 	    } catch(unknownException e2) {
-		System.out.println(e2.toString());
-		dude.line();
+		this.ui.showError(e2.toString());
 		continue;
 	    }
 
 	    if (input.toLowerCase().equals("bye")) {
-                dude.bye();
-                break;
+                this.bye();
             }
 
 	    else if (input.toLowerCase().equals("list")) {
-		dude.printList();
+		this.ui.printList(this.taskList);
 	    }
 
 	    else if (input.toLowerCase().startsWith("mark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
-		dude.mark(i);
+		this.mark(i);
 	    }
 	    
 	    else if (input.toLowerCase().startsWith("unmark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
-		dude.unmark(i);
+		this.unmark(i);
 	    }
 
 	    else if (input.toLowerCase().startsWith("delete ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
-		dude.delete(i);
+		this.delete(i);
 	    }
 
 	    else if (input.toLowerCase().startsWith("todo ")) {
 		String desc = input.split(" ", 2)[1];
 		Todo t = new Todo(desc);
 
-		dude.addList(t);
+		this.addList(t);
 		
 	    }
 
@@ -214,7 +149,7 @@ public class Dude {
 		desc = desc.split(" /")[0];
 		Deadline t = new Deadline(desc, by);
 
-		dude.addList(t);
+		this.addList(t);
 	    }
 
 	    else if (input.toLowerCase().startsWith("event ")) {
@@ -224,10 +159,14 @@ public class Dude {
 		desc = desc.split(" /")[0];
 		Event t = new Event(desc, from, to);
 		
-		dude.addList(t);
+		this.addList(t);
 	    }
 	}
 	
 	scanner.close();
+    }
+    
+    public static void main(String[] args) {
+	new Dude("./dude.txt").run();
     }
 }
