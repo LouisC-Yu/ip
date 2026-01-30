@@ -3,9 +3,15 @@ Sup dude, I'm Dude!
 How may I help, dude?
 
 ____________________________________________________________
-1. [T][X] read book
-2. [D][X] return book (by: tomorrow)
-3. [E][X] birthday (from: today to: tomorrow)
+1. [T][ ] read book
+2. [D][ ] return book (by: 31 Jan 2026)
+3. [E][ ] birthday (from: 31 Jan 2026 to: 1 Feb 2026)
+____________________________________________________________
+Sure dude! Here's all tasks with "book":
+
+1. [T][ ] read book
+2. [D][ ] return book (by: 31 Jan 2026)
+____________________________________________________________
 ____________________________________________________________
 Okay, bye dude!
 ____________________________________________________________

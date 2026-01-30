@@ -10,7 +10,7 @@ import java.util.*;
 import java.io.*;
 
 public class Dude {
-    String[] commandarray = {"bye", "list", "delete", "todo", "deadline", "event", "mark", "unmark"};
+    String[] commandarray = {"bye", "list", "delete", "find", "todo", "deadline", "event", "mark", "unmark"};
     private List<String> commands = Arrays.asList(commandarray);
 
     private Storage storage;
@@ -59,6 +59,10 @@ public class Dude {
 	this.taskList.remove(i-1);
 	int ts = this.taskList.size();
 	this.ui.showTaskDeleted(t, ts);
+    }
+
+    public void find(String search) {
+	this.ui.find(this.taskList, search);
     }
 
     public void checkError(String command) throws commandException, unknownException {
@@ -141,6 +145,10 @@ public class Dude {
 	    else if (input.toLowerCase().startsWith("delete ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
 		this.delete(i);
+	    }
+
+	    else if (input.toLowerCase().startsWith("find ")) {
+		this.find(input.substring(5));
 	    }
 
 	    else if (input.toLowerCase().startsWith("todo ")) {
