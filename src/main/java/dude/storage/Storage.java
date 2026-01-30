@@ -1,3 +1,10 @@
+package dude.storage;
+
+import dude.task.Task;
+import dude.task.Todo;
+import dude.task.Deadline;
+import dude.task.Event;
+
 import java.io.*;
 import java.util.*;
 

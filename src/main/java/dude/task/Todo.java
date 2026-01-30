@@ -1,3 +1,5 @@
+package dude.task;
+
 public class Todo extends Task {
     protected String description;
     protected boolean isDone;
