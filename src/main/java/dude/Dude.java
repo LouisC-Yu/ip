@@ -1,3 +1,11 @@
+package dude;
+
+import dude.storage.Storage;
+import dude.task.TaskList;
+import dude.ui.Ui;
+import dude.task.*;
+import dude.exceptions.*;
+
 import java.util.*;
 import java.io.*;
 

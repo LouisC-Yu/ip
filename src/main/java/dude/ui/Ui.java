@@ -1,3 +1,8 @@
+package dude.ui;
+
+import dude.task.TaskList;
+import dude.task.*;
+
 public class Ui {
 
     public void line() {
