@@ -5,66 +5,46 @@ import dude.task.*;
 
 public class Ui {
 
-    public void line() {
-        System.out.println("____________________________________________________________");
+    public String line() {
+        return "____________________________________________________________";
     }
 
-    public void greet() {
-	line();
-        System.out.println("Sup dude, I'm Dude!\nHow may I help, dude?\n");
-        line();
+    public String greet() {
+        return line() + "Sup dude, I'm Dude!\nHow may I help, dude?";
     }
 
-    public void bye() {
-        System.out.println("Okay, bye dude!");
-        line();
+    public String bye() {
+        return "Okay, bye dude!";
     }
 
-    public void showError(String message) {
-        System.out.println(message);
-        line();
+    public String showError(String message) {
+        return message;
     }
 
-    public void printList(TaskList tasks) {
+    public String printList(TaskList tasks) {
+	String out = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).printTask());
+            out += (i + 1) + ". " + tasks.get(i).printTask() + "\n";
         }
-        line();
+        return out;
     }
 
-    public void find(TaskList tasks, String search) {
-	TaskList found = new TaskList();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getName().contains(search)) {
-		found.add(tasks.get(i));
-	    }
-        }
-	System.out.println("Sure dude! Here's all tasks with \"" + search + "\":\n");
-	printList(found);
-	line();
-    }
-
-    public void showTaskAdded(Task task, int size) {
-        System.out.println(
-            "Sure dude! added:\n" +
+    public String showTaskAdded(Task task, int size) {
+        return "Sure dude! added:\n" +
             task.printTask() +
-            "\nNow you have " + size + " task(s) in the list"
-        );
-        line();
+            "\nNow you have " + size + " task(s) in the list";
     }
 
-    public void showTaskDeleted(Task task, int size) {
-        System.out.println("Sure dude! Deleting this task:\n" + task.printTask());
-        System.out.println("Now you have " + size + " task(s) in the task list, dude!");
-        line();
+    public String showTaskDeleted(Task task, int size) {
+        return "Sure dude! Deleting this task:\n" + task.printTask() + 
+            "\nNow you have " + size + " task(s) in the task list, dude!";
     }
 
-    public void showTaskMarked(Task task, boolean done) {
+    public String showTaskMarked(Task task, boolean done) {
         if (done) {
-            System.out.println("Sure dude! I'll mark that as done:\n" + task.printTask());
+            return "Sure dude! I'll mark that as done:\n" + task.printTask();
         } else {
-            System.out.println("Sure dude! I'll unmark that as not done:\n" + task.printTask());
+            return "Sure dude! I'll unmark that as not done:\n" + task.printTask();
         }
-        line();
     }
 }

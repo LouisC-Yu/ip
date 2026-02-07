@@ -10,7 +10,7 @@ import java.util.*;
 import java.io.*;
 
 public class Dude {
-    String[] commandarray = {"bye", "list", "delete", "find", "todo", "deadline", "event", "mark", "unmark"};
+    String[] commandarray = {"bye", "list", "delete", "todo", "deadline", "event", "mark", "unmark"};
     private List<String> commands = Arrays.asList(commandarray);
 
     private Storage storage;
@@ -27,42 +27,43 @@ public class Dude {
 	}
     }
 
-    public void bye() {
-	this.ui.bye();
+    public String greet() {
+	return this.ui.greet();
+    }
+
+    public String bye() {
+	String out = this.ui.bye();
 	try {
 	    this.storage.save(this.taskList.getAll());
         } catch (IOException e) {
 	    System.out.println("Error saving data");
 	}
+	return out;
     }
 
-    public void addList(Task t) {
+    public String addList(Task t) {
 	this.taskList.add(t);
 	int s = this.taskList.size();
-	this.ui.showTaskAdded(t, s);
+	return this.ui.showTaskAdded(t, s);
     }
 
-    public void mark(int i) {
+    public String mark(int i) {
 	Task t = this.taskList.get(i-1);
 	t.markDone();
-	this.ui.showTaskMarked(t, true);
+	return this.ui.showTaskMarked(t, true);
     }
 
-    public void unmark(int i) {
+    public String unmark(int i) {
 	Task t = this.taskList.get(i-1);
 	t.unmarkDone();
-	this.ui.showTaskMarked(t, false);
+	return this.ui.showTaskMarked(t, false);
     }
 
-    public void delete(int i) {
+    public String delete(int i) {
 	Task t = this.taskList.get(i-1);
 	this.taskList.remove(i-1);
 	int ts = this.taskList.size();
-	this.ui.showTaskDeleted(t, ts);
-    }
-
-    public void find(String search) {
-	this.ui.find(this.taskList, search);
+	return this.ui.showTaskDeleted(t, ts);
     }
 
     public void checkError(String command) throws commandException, unknownException {
@@ -103,60 +104,55 @@ public class Dude {
 	}
     }
 
-    public void run() {
-	this.ui.greet();
-	Scanner scanner = new Scanner(System.in);
+    public String getResponse(String inp) {
+	String output = "";
+//	Scanner scanner = new Scanner(System.in);
 
-	while (true) {
-	    if (!scanner.hasNextLine()) {
-		break;
-	    }
+//	while (true) {
+//	    if (!scanner.hasNextLine()) {
+//		break;
+//	    }
 
-	    String input = scanner.nextLine().trim();
+	    String input = inp.trim();
 
 	    try {
 		this.checkError(input);
 	    } catch (commandException e1) {
-		this.ui.showError(e1.toString());
-		continue;
+		output += this.ui.showError(e1.toString());
+//		continue;
 	    } catch(unknownException e2) {
-		this.ui.showError(e2.toString());
-		continue;
+		output += this.ui.showError(e2.toString());
+//		continue;
 	    }
 
 	    if (input.toLowerCase().equals("bye")) {
-                this.bye();
+                output += this.bye();
             }
 
 	    else if (input.toLowerCase().equals("list")) {
-		this.ui.printList(this.taskList);
+		output += this.ui.printList(this.taskList);
 	    }
 
 	    else if (input.toLowerCase().startsWith("mark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
-		this.mark(i);
+		output += this.mark(i);
 	    }
 	    
 	    else if (input.toLowerCase().startsWith("unmark ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
-		this.unmark(i);
+		output += this.unmark(i);
 	    }
 
 	    else if (input.toLowerCase().startsWith("delete ")) {
 		int i = Integer.parseInt(input.split(" ")[1]);
-		this.delete(i);
-	    }
-
-	    else if (input.toLowerCase().startsWith("find ")) {
-		this.find(input.substring(5));
+		output += this.delete(i);
 	    }
 
 	    else if (input.toLowerCase().startsWith("todo ")) {
 		String desc = input.split(" ", 2)[1];
 		Todo t = new Todo(desc);
 
-		this.addList(t);
-		
+		output += this.addList(t);
 	    }
 
 	    else if (input.toLowerCase().startsWith("deadline ")) {
@@ -165,7 +161,7 @@ public class Dude {
 		desc = desc.split(" /")[0];
 		Deadline t = new Deadline(desc, by);
 
-		this.addList(t);
+		output += this.addList(t);
 	    }
 
 	    else if (input.toLowerCase().startsWith("event ")) {
@@ -175,14 +171,15 @@ public class Dude {
 		desc = desc.split(" /")[0];
 		Event t = new Event(desc, from, to);
 		
-		this.addList(t);
+		output += this.addList(t);
 	    }
-	}
+	return output;
+//	}
 	
-	scanner.close();
+//	scanner.close();
     }
     
-    public static void main(String[] args) {
-	new Dude("./dude.txt").run();
-    }
+//    public static void main(String[] args) {
+//	new Dude("./dude.txt").run();
+//    }
 }
