@@ -32,6 +32,18 @@ public class Ui {
         line();
     }
 
+    public void find(TaskList tasks, String search) {
+	TaskList found = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getName().contains(search)) {
+		found.add(tasks.get(i));
+	    }
+        }
+	System.out.println("Sure dude! Here's all tasks with \"" + search + "\":\n");
+	printList(found);
+	line();
+    }
+
     public void showTaskAdded(Task task, int size) {
         System.out.println(
             "Sure dude! added:\n" +
