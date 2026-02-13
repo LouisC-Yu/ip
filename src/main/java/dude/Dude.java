@@ -42,24 +42,28 @@ public class Dude {
     }
 
     public String addList(Task t) {
+	assert this.taskList != null : "Task list does not exist, dude";
 	this.taskList.add(t);
 	int s = this.taskList.size();
 	return this.ui.showTaskAdded(t, s);
     }
 
     public String mark(int i) {
+	assert i <= this.taskList.size() : "This task does not exist dude";
 	Task t = this.taskList.get(i-1);
 	t.markDone();
 	return this.ui.showTaskMarked(t, true);
     }
 
     public String unmark(int i) {
+	assert i <= this.taskList.size() : "This task does not exist dude";
 	Task t = this.taskList.get(i-1);
 	t.unmarkDone();
 	return this.ui.showTaskMarked(t, false);
     }
 
     public String delete(int i) {
+	assert i <= this.taskList.size() : "This task does not exist dude";
 	Task t = this.taskList.get(i-1);
 	this.taskList.remove(i-1);
 	int ts = this.taskList.size();
