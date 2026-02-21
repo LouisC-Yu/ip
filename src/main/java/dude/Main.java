@@ -78,6 +78,10 @@ public class Main extends Application {
         });
     }
 
+    /*
+	Handles the creation of new DialogBoxes of user input and chatbot output. Returns nothing
+    */
+
     private void handleUserInput() {
         String userText = userInput.getText();
         String dudeText = dude.getResponse(userInput.getText());

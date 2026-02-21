@@ -27,9 +27,18 @@ public class Dude {
 	}
     }
 
+    /*
+	Returns a String of the preset startup message
+    */
+
     public String greet() {
 	return this.ui.greet();
     }
+
+    /*
+	Returns a String of the preset closing message 
+	and saves TaskList this.taskList to dude.txt
+    */
 
     public String bye() {
 	String out = this.ui.bye();
@@ -41,11 +50,21 @@ public class Dude {
 	return out;
     }
 
+    /*
+	Takes a Task and adds it to TaskList, and returns String of
+	the standard added message with the Task
+    */
+
     public String addList(Task t) {
 	this.taskList.add(t);
 	int s = this.taskList.size();
 	return this.ui.showTaskAdded(t, s);
     }
+
+    /*
+	Takes an integer and marks Task of index i in TaskList as done
+	Returns String of mark message with Task
+    */
 
     public String mark(int i) {
 	Task t = this.taskList.get(i-1);
@@ -53,11 +72,21 @@ public class Dude {
 	return this.ui.showTaskMarked(t, true);
     }
 
+    /*
+	Takes an integer and marks Task of index i in TaskList as not done (or unmarks as done)
+	Returns String of unmark message with Task
+    */
+
     public String unmark(int i) {
 	Task t = this.taskList.get(i-1);
 	t.unmarkDone();
 	return this.ui.showTaskMarked(t, false);
     }
+
+    /*
+	Takes an integer and removes Task of index i in TaskList from the TaskList
+	Returns String of delete message with Task
+    */
 
     public String delete(int i) {
 	Task t = this.taskList.get(i-1);
@@ -65,6 +94,10 @@ public class Dude {
 	int ts = this.taskList.size();
 	return this.ui.showTaskDeleted(t, ts);
     }
+
+    /*
+	Throws either commandException or unknownException errors due to invalid user input
+    */
 
     public void checkError(String command) throws commandException, unknownException {
 	String s = command.toLowerCase();
@@ -103,6 +136,10 @@ public class Dude {
 	    }
 	}
     }
+
+    /*
+	Takes String of user input and runs the called command, and returns String of the output
+    */
 
     public String getResponse(String inp) {
 	String output = "";
