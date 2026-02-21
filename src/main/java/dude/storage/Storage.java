@@ -16,6 +16,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /*
+	Returns a newly created TaskList from the saved data 
+	in the file specified int this.filePath
+    */
+
     public List<Task> load() throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(this.filePath);
@@ -63,6 +68,10 @@ public class Storage {
 
         return tasks;
     }
+
+    /*
+	Takes the TaskList and saves it into the file specified in this.filePath
+    */
 
     public void save(List<Task> tasks) throws IOException {
         String s = "";
