@@ -1,26 +1,169 @@
-# Duke project template
+# Dude User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Dude UI Screenshot](UI.png)
 
-## Setting up in Intellij
+## Introduction
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+**Dude** is a simple task management chatbot with a chat-style user interface!
+You interact with Dude by typing commands, and it helps you manage tasks such as 
+todos, deadlines, and events
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Your task list is saved with the **bye** command, allowing you to continue where you
+left off in future sessions
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+---
+
+## How to Run Dude
+
+### Prerequisites
+
+Ensure that **Java 17 or later** is installed.
+
+You can check your Java version using:
+```
+java -version
+```
+
+If Java is not installed, please install a Java 17+ distribution
+
+---
+
+### Running Dude
+
+1. Download or copy `Dude.jar` onto your computer.
+2. Open a terminal (Command Prompt, PowerShell, or shell).
+3. Navigate to the directory containing `Dude.jar`.
+4. Run the following command:
+```
+java -jar Dude.jar
+```
+
+---
+
+## Listing tasks
+
+Lists all tasks currently stored in Dude.
+
+Example interaction:
+```
+> list
+>
+> 1. [ ] homework
+> 2. [X] Return library book (by: 2026-02-28)
+> 3. [ ] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+```
+
+---
+
+## Adding todo tasks
+
+Adds a simple task with only a name.
+
+Example interaction:
+```
+> todo homework
+>
+> Sure dude! added:
+> [ ] homework
+> Now you have 1 task(s) in the list
+```
+
+---
+
+## Adding deadline tasks
+
+Adds a task with a specific due date.
+
+Format:
+deadline <task name> /by <yyyy-mm-dd>
+
+Example interaction:
+```
+> deadline Return library book /by 2026-02-28
+>
+> Sure dude! added:
+> [ ] Return library book (by: 2026-02-28)
+> Now you have 2 task(s) in the list
+```
+
+---
+
+## Adding event tasks
+
+Adds a task with a start and end date.
+
+Format:
+event <task name> /from <yyyy-mm-dd> /to <yyyy-mm-dd>
+
+Example interaction:
+```
+> event Mom's Birthday /from 2026-03-01 /to 2026-03-02
+>
+> Sure dude! added:
+> [ ] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+> Now you have 3 task(s) in the list
+```
+
+---
+
+## Marking tasks as done
+
+Marks a task as completed.
+
+Example interaction:
+```
+> mark 3
+>
+> Sure dude! I'll mark that as done:
+> [X] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+```
+
+---
+
+## Unmarking tasks
+
+Marks a completed task as not done.
+
+Example interaction:
+```
+> unmark 3
+>
+> Sure dude! I'll unmark that as not done:
+> [ ] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+```
+
+---
+
+## Deleting tasks
+
+Deletes a task from the list.
+
+Example interaction:
+```
+> delete 2
+>
+> Sure dude! Deleting this task:
+> [X] Return library book (by: 2026-02-28)
+> Now you have 2 task(s) in the list
+```
+
+---
+
+## Exiting Dude
+
+Saves all tasks and exits the application.
+
+Example interaction:
+```
+> bye
+>
+> Okay, bye dude!
+```
+
+---
+
+## Notes
+
+- All dates must be in the yyyy-mm-dd format
+- Task numbers correspond to the indices shown in the list command
+- Tasks are saved automatically when exiting using bye
