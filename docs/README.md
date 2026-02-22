@@ -1,30 +1,117 @@
-# Duke User Guide
+# Dude User Guide
 
-// Update the title above to match the actual product name
+![Dude UI Screenshot](UI.png)
 
-// Product screenshot goes here
+## Introduction
 
-// Product intro goes here
+**Dude** is a simple task management chatbot with a chat-style user interface!
+You interact with Dude by typing commands, and it helps you manage tasks such as 
+todos, deadlines, and events
 
-## Adding deadlines
+Your task list is saved with the **bye** command, allowing you to continue where you
+left off in future sessions
 
-// Describe the action and its outcome.
+---
 
-// Give examples of usage
+## Listing tasks
 
-Example: `keyword (optional arguments)`
+Lists all tasks currently stored in Dude.
 
-// A description of the expected outcome goes here
+Example interaction:
+> list
+> 1. [ ] homework
+> 2. [X] Return library book (by: 2026-02-28)
+> 3. [ ] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
 
-```
-expected output
-```
+---
 
-## Feature ABC
+## Adding todo tasks
 
-// Feature details
+Adds a simple task with only a name.
 
+Example interaction:
+> todo homework
+> Sure dude! added:
+> [ ] homework
+> Now you have 1 task(s) in the list
 
-## Feature XYZ
+---
 
-// Feature details
+## Adding deadline tasks
+
+Adds a task with a specific due date.
+
+Format:
+deadline <task name> /by <yyyy-mm-dd>
+
+Example interaction:
+> deadline Return library book /by 2026-02-28
+> Sure dude! added:
+> [ ] Return library book (by: 2026-02-28)
+> Now you have 2 task(s) in the list
+
+---
+
+## Adding event tasks
+
+Adds a task with a start and end date.
+
+Format:
+event <task name> /from <yyyy-mm-dd> /to <yyyy-mm-dd>
+
+Example interaction:
+> event Mom's Birthday /from 2026-03-01 /to 2026-03-02
+> Sure dude! added:
+> [ ] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+> Now you have 3 task(s) in the list
+
+---
+
+## Marking tasks as done
+
+Marks a task as completed.
+
+Example interaction:
+> mark 3
+> Sure dude! I'll mark that as done:
+> [X] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+
+---
+
+## Unmarking tasks
+
+Marks a completed task as not done.
+
+Example interaction:
+> unmark 3
+> Sure dude! I'll unmark that as not done:
+> [ ] Mom's Birthday (from: 2026-03-01 to: 2026-03-02)
+
+---
+
+## Deleting tasks
+
+Deletes a task from the list.
+
+Example interaction:
+> delete 2
+> Noted. I've removed this task:
+> [X] Return library book (by: 2026-02-28)
+
+---
+
+## Exiting Dude
+
+Saves all tasks and exits the application.
+
+Example interaction:
+> bye
+> Okay, bye dude!
+
+---
+
+## Notes
+
+- All dates must be in the yyyy-mm-dd format
+- Task numbers correspond to the indices shown in the list command
+- Tasks are saved automatically when exiting using bye

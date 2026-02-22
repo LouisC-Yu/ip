@@ -31,12 +31,12 @@ public class Storage {
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().trim().split("/");
+                String[] data = scanner.nextLine().split("/");
 
                 switch (data[0]) {
                     case "T":
                         Todo t = new Todo(data[2]);
-                        if (!data[1].equals("X")) {
+                        if (data[1].equals("X")) {
 			    t.markDone();
 			}
                         tasks.add(t);
@@ -44,7 +44,7 @@ public class Storage {
 
                     case "D":
                         Deadline d = new Deadline(data[2], data[3]);
-                        if (!data[1].equals("X")) {
+                        if (data[1].equals("X")) {
 			    d.markDone();
 			}
                         tasks.add(d);
@@ -52,7 +52,7 @@ public class Storage {
 
                     case "E":
                         Event e = new Event(data[2], data[3], data[4]);
-                        if (!data[1].equals("X")) {
+                        if (data[1].equals("X")) {
 			    e.markDone();
 			}
                         tasks.add(e);
