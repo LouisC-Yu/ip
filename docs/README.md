@@ -1,6 +1,6 @@
 # Dude User Guide
 
-![Dude UI Screenshot](UI.png)
+![Dude UI Screenshot](Ui.png)
 
 ## Introduction
 
