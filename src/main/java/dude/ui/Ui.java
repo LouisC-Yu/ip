@@ -43,6 +43,9 @@ public class Ui {
 
     public String printList(TaskList tasks) {
 	String out = "";
+	if (tasks.size() <= 0) {
+	    return "You have no tasks, dude!";
+	}
         for (int i = 0; i < tasks.size(); i++) {
             out += (i + 1) + ". " + tasks.get(i).printTask() + "\n";
         }

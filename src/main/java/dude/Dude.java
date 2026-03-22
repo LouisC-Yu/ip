@@ -5,12 +5,16 @@ import dude.task.TaskList;
 import dude.ui.Ui;
 import dude.task.*;
 import dude.exceptions.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeParseException;
 
 import java.util.*;
 import java.io.*;
 
 public class Dude {
-    String[] commandarray = {"bye", "list", "delete", "todo", "deadline", "event", "mark", "unmark"};
+    String[] commandarray = {"hi", "bye", "list", "delete", "todo", "deadline", "event", "mark", "unmark"};
     private List<String> commands = Arrays.asList(commandarray);
 
     private Storage storage;
@@ -69,6 +73,7 @@ public class Dude {
 
     public String mark(int i) {
 	assert i <= this.taskList.size() : "This task does not exist dude";
+
 	Task t = this.taskList.get(i-1);
 	t.markDone();
 	return this.ui.showTaskMarked(t, true);
@@ -81,6 +86,7 @@ public class Dude {
 
     public String unmark(int i) {
 	assert i <= this.taskList.size() : "This task does not exist dude";
+
 	Task t = this.taskList.get(i-1);
 	t.unmarkDone();
 	return this.ui.showTaskMarked(t, false);
@@ -93,6 +99,7 @@ public class Dude {
 
     public String delete(int i) {
 	assert i <= this.taskList.size() : "This task does not exist dude";
+
 	Task t = this.taskList.get(i-1);
 	this.taskList.remove(i-1);
 	int ts = this.taskList.size();
@@ -117,28 +124,96 @@ public class Dude {
 	}
 
 	else if (s.startsWith("deadline")) {
-	    if (s.split("/")[0].split(" ").length <= 1) {
+	    String[] firstSplit = s.trim().split("\\s+", 2);
+	    if (firstSplit.length <= 1) {
 	    	throw new commandException("Dude! The deadline command can't have an empty description, dude!");
 	    }
 
-	    if (!s.contains("/by ")) {
+	    String rest = firstSplit[1];
+
+	    String[] dates = rest.split("\\s*/(?:by|from|to)\\s+");
+
+	    List<String> result = new ArrayList<>();
+
+	    for (String d : dates) {
+    		result.add(d.trim());
+	    }
+
+	    String[] parts = result.toArray(new String[0]);
+
+	    if (s.contains("/by ")) {
+		try {
+		    LocalDate by = LocalDate.parse(parts[1]);
+		} catch (DateTimeParseException e) {
+    		    throw new commandException("Dude, you need to input a valid date in yyyy-mm-dd format, dude!");
+		}
+	    } else {
 		throw new commandException("Dude! A deadline needs a, y'know, deadline (/by) dude!");
 	    }
 	}
 
 	else if (s.startsWith("event")) {
-
-	    if (s.split("/")[0].split(" ").length <= 1) {
+	    String[] firstSplit = s.trim().split("\\s+", 2);
+	    if (firstSplit.length <= 1) {
 	    	throw new commandException("Dude! The event command can't have an empty description, dude!");
 	    }
 
-	    if (!s.contains("/from ")) {
+	    String rest = firstSplit[1];
+
+	    String[] dates = rest.split("\\s*/(?:by|from|to)\\s+");
+
+	    List<String> result = new ArrayList<>();
+
+	    for (String d : dates) {
+    		result.add(d.trim());
+	    }
+
+	    String[] parts = result.toArray(new String[0]);
+
+	    if (s.contains("/from ")) {
+		try {
+		    LocalDate from = LocalDate.parse(parts[1]);
+		} catch (DateTimeParseException e) {
+    		    throw new commandException("Dude, you need to input a valid date in yyyy-mm-dd format, dude!");
+		}
+	    } else {
 		throw new commandException("Dude! An event needs to have a start (/from) time, dude!");
 	    }
-	    else if (!s.contains("/to ")) {
+
+	    if (s.contains("/to ")) {
+		try {
+		    LocalDate to = LocalDate.parse(parts[1]);
+		} catch (DateTimeParseException e) {
+    		    throw new commandException("Dude, you need to input a valid date in yyyy-mm-dd format, dude!");
+		}
+	    } else {
 		throw new commandException("Dude! An event needs to have an end (/to) time, dude!");
 	    }
 	}
+
+	else if (s.startsWith("mark") || s.startsWith("unmark") || s.startsWith("delete")) {
+	    String[] parts = s.trim().split("\\s+");
+
+    	    if (parts.length <= 1) {
+        	throw new commandException("Dude, put an index number, dude!");
+    	    }
+
+    	    int i;
+    	    try {
+        	i = Integer.parseInt(parts[1]);
+    	    } catch (NumberFormatException e) {
+        	throw new commandException("Index must be a number, dude!");
+    	    }
+
+
+    	    if (i <= 0) {
+        	throw new commandException("Number must be 1 or above, dude!");
+    	    }
+
+    	    if (i > this.taskList.size()) {
+        	throw new commandException("This task does not exist, dude!");
+            }
+    	}
     }
 
     /*
@@ -147,23 +222,15 @@ public class Dude {
 
     public String getResponse(String inp) {
 	String output = "";
-//	Scanner scanner = new Scanner(System.in);
-
-//	while (true) {
-//	    if (!scanner.hasNextLine()) {
-//		break;
-//	    }
 
 	    String input = inp.trim();
 
 	    try {
 		this.checkError(input);
 	    } catch (commandException e1) {
-		output += this.ui.showError(e1.toString());
-//		continue;
+		return this.ui.showError(e1.toString());
 	    } catch (unknownException e2) {
-		output += this.ui.showError(e2.toString());
-//		continue;
+		return this.ui.showError(e2.toString());
 	    }
 
 	    if (input.toLowerCase().equals("bye")) {

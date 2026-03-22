@@ -12,7 +12,7 @@ public class DudeTest {
     public void commandTestCases() {
 	private Dude dude = new Dude("./dude.txt");
 	try {
-	    assertEquals(dude.getResponse("djsfjdsjfjsd"), 
+	    assertEquals(dude.getResponse("hi"), 
 "Sup dude, I'm Dude!\nHow may I help, dude?");
 
 	    assertEquals(dude.getResponse("bye"), 
