@@ -18,7 +18,7 @@ public class Ui {
     */
 
     public String greet() {
-        return line() + "Sup dude, I'm Dude!\nHow may I help, dude?";
+        return "Sup dude, I'm Dude!\nHow may I help, dude?";
     }
 
     /*
@@ -34,7 +34,7 @@ public class Ui {
     */
 
     public String showError(String message) {
-        return message;
+        return message.split(": ")[1];
     }
 
     /*

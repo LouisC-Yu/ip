@@ -161,13 +161,17 @@ public class Dude {
 	    } catch (commandException e1) {
 		output += this.ui.showError(e1.toString());
 //		continue;
-	    } catch(unknownException e2) {
+	    } catch (unknownException e2) {
 		output += this.ui.showError(e2.toString());
 //		continue;
 	    }
 
 	    if (input.toLowerCase().equals("bye")) {
                 output += this.bye();
+            }
+
+	    if (input.toLowerCase().equals("hi")) {
+                output += this.greet();
             }
 
 	    else if (input.toLowerCase().equals("list")) {
